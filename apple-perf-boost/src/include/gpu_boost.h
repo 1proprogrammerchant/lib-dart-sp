@@ -20,6 +20,7 @@ extern "C" {
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <stddef.h>
 
 /* - Result codes */
 typedef enum {
