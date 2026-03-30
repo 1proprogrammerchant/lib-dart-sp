@@ -24,9 +24,9 @@ let package = Package(
             path: "src",
             exclude: ["perf_engine.cpp", "perf_engine.hpp"],
             sources: ["cpu_boost.c", "perf_utils.c", "gpu_boost.mm"],
-            publicHeadersPath: "../include",
+            publicHeadersPath: "include",
             cSettings: [
-                .headerSearchPath("../include"),
+                .headerSearchPath("include"),
             ],
             linkerSettings: [
                 .linkedFramework("Metal", .when(platforms: [.macOS])),

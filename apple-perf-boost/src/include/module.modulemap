@@ -1,0 +1,6 @@
+module CPerfBoost {
+    header "cpu_boost.h"
+    header "gpu_boost.h"
+    header "perf_utils.h"
+    export *
+}

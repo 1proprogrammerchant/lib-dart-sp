@@ -10,6 +10,7 @@
  */
 
 import Foundation
+import CPerfBoost
 
 // MARK: - PerfBoost Metrics Data
 

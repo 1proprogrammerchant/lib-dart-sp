@@ -25,7 +25,7 @@ if(APPLE)
 endif()
 
 # ── Include paths ──────────────────────────────────────────────
-include_directories(${CMAKE_SOURCE_DIR}/include)
+include_directories(${CMAKE_SOURCE_DIR}/src/include)
 
 # ── Sources ────────────────────────────────────────────────────
 set(C_SOURCES
@@ -81,7 +81,7 @@ endif()
 install(TARGETS perf_boost_c perf_boost_cpp
     ARCHIVE DESTINATION lib
 )
-install(DIRECTORY include/ DESTINATION include)
+install(DIRECTORY src/include/ DESTINATION include)
 if(APPLE)
     install(TARGETS perf_boost_gpu ARCHIVE DESTINATION lib)
 endif()

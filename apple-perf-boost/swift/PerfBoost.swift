@@ -7,6 +7,7 @@
  */
 
 import Foundation
+import CPerfBoost
 
 public struct CPUBoost {
 
