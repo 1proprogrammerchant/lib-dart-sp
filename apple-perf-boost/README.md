@@ -77,8 +77,8 @@ swift run perf-boost
 
 This project references [apple/swift-system-metrics](https://github.com/apple/swift-system-metrics) in two ways:
 
-1. **Vendored reference files** in `vendor/swift-system-metrics/` — annotated copies showing the Darwin metrics collection patterns we adopt
-2. **SPM dependency** in `Package.swift` — pulls the real `SystemMetrics` library so you can use `SystemMetricsMonitor` alongside our `PerfBoostMetricsCollector`
+1. **Vendored reference files** in `vendor/swift-system-metrics/` - annotated copies showing the Darwin metrics collection patterns we adopt
+2. **SPM dependency** in `Package.swift` - pulls the real `SystemMetrics` library so you can use `SystemMetricsMonitor` alongside our `PerfBoostMetricsCollector`
 
 The `MetricsIntegration.swift` file mirrors the swift-system-metrics label/gauge pattern but adds GPU and optimization-specific metrics.
 
