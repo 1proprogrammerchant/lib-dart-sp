@@ -26,7 +26,6 @@ extern "C" {
 
 namespace apple_perf {
 
-/* ── Benchmark result ─────────────────────────────────────────── */
 struct BenchmarkResult {
     std::string name;
     double      elapsed_ms;
@@ -36,7 +35,6 @@ struct BenchmarkResult {
     int32_t     thermal_state;
 };
 
-/* ── RAII wrapper: elevates QoS on construction, restores on destruction ─ */
 class ScopedQoS {
 public:
     explicit ScopedQoS(cpu_qos_level_t level) : previous_(CPU_QOS_DEFAULT) {
@@ -50,7 +48,7 @@ private:
     cpu_qos_level_t previous_;
 };
 
-/* ── RAII wrapper: wired memory region ────────────────────────── */
+/* - RAII wrapper: wired memory region - */
 class WiredRegion {
 public:
     WiredRegion(void *addr, size_t len) : addr_(addr), len_(len) {
@@ -65,14 +63,13 @@ private:
     size_t len_;
 };
 
-/* ── Cache-aligned buffer (unique_ptr with custom deleter) ───── */
+/* - Cache-aligned buffer (unique_ptr with custom deleter) - */
 using AlignedBuffer = std::unique_ptr<void, decltype(&cpu_boost_aligned_free)>;
 
 inline AlignedBuffer make_aligned_buffer(size_t size) {
     return AlignedBuffer(cpu_boost_aligned_alloc(size), cpu_boost_aligned_free);
 }
 
-/* ── GPU context RAII wrapper ─────────────────────────────────── */
 class GPUContext {
 public:
     GPUContext() : ctx_(gpu_boost_create()) {}
@@ -88,7 +85,6 @@ private:
     gpu_boost_ctx_t *ctx_;
 };
 
-/* ── Performance engine ───────────────────────────────────────── */
 class PerfEngine {
 public:
     PerfEngine();
