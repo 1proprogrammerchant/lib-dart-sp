@@ -140,13 +140,14 @@ public final class PerfBoostMetricsCollector: @unchecked Sendable {
     }
 
     #if os(macOS)
-    private func fillDarwinProcessInfo(_ data: inout PerfBoostMetricsData) {
+    private nonisolated func fillDarwinProcessInfo(_ data: inout PerfBoostMetricsData) {
         // Use proc_pidinfo to get memory stats, matching the swift-system-metrics approach
         var taskInfo = mach_task_basic_info()
         var count = mach_msg_type_number_t(MemoryLayout<mach_task_basic_info>.size / MemoryLayout<natural_t>.size)
+        nonisolated(unsafe) let selfPort = mach_task_self_
         let kr = withUnsafeMutablePointer(to: &taskInfo) { ptr in
             ptr.withMemoryRebound(to: Int32.self, capacity: Int(count)) { intPtr in
-                task_info(mach_task_self_, task_flavor_t(MACH_TASK_BASIC_INFO), intPtr, &count)
+                task_info(selfPort, task_flavor_t(MACH_TASK_BASIC_INFO), intPtr, &count)
             }
         }
         if kr == KERN_SUCCESS {

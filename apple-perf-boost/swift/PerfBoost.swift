@@ -22,7 +22,7 @@ public struct CPUBoost {
 
     @discardableResult
     public static func setQoS(_ level: QoS) -> Bool {
-        cpu_boost_set_qos(cpu_qos_level_t(rawValue: level.rawValue)) == CPU_BOOST_OK
+        cpu_boost_set_qos(cpu_qos_level_t(UInt32(level.rawValue))) == CPU_BOOST_OK
     }
 
     /// Request real-time scheduling for latency-critical work (audio, tight loops).
