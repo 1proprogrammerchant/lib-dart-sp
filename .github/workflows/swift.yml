@@ -1,0 +1,37 @@
+name: Swift Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: macos-14
+    strategy:
+      matrix:
+        swift: ["5.9", "5.10"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Swift ${{ matrix.swift }}
+        uses: swift-actions/setup-swift@v2
+        with:
+          swift-version: ${{ matrix.swift }}
+
+      - name: Swift version
+        run: swift --version
+
+      - name: Resolve dependencies
+        working-directory: apple-perf-boost
+        run: swift package resolve
+
+      - name: Build (debug)
+        working-directory: apple-perf-boost
+        run: swift build -v
+
+      - name: Build (release)
+        working-directory: apple-perf-boost
+        run: swift build -c release -v
