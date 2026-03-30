@@ -225,8 +225,6 @@ cpu_boost_result_t cpu_boost_prefer_pcores(void)
 
 #else /* !__APPLE__ */
 
-/* ── Stubs for non-Apple platforms ─────────────────────────────── */
-
 cpu_boost_result_t cpu_boost_set_qos(cpu_qos_level_t level)
     { (void)level; return CPU_BOOST_ERR_PLATFORM; }
 cpu_boost_result_t cpu_boost_set_realtime(uint32_t p, uint32_t c, uint32_t co)
