@@ -24,25 +24,25 @@ int main(void)
 {
     printf("=== Apple PerfBoost C Test Driver ===\n\n");
 
-    /* ── Timing ─────────────────────────────────────────────── */
+    /* - Timing */
     uint64_t t0 = perf_timestamp_ns();
     perf_spin_wait_ns(1000000); /* ~1 ms */
     uint64_t t1 = perf_timestamp_ns();
     printf("[timing] spin_wait(1ms) actual: %.3f ms\n",
            (double)(t1 - t0) / 1e6);
 
-    /* ── SIMD ───────────────────────────────────────────────── */
+    /* - SIMD  */
     printf("[simd]   width = %d bytes\n", cpu_boost_simd_width());
 
-    /* ── QoS ────────────────────────────────────────────────── */
+
     int r = cpu_boost_set_qos(CPU_QOS_USER_INTERACTIVE);
     printf("[qos]    set USER_INTERACTIVE: %s\n", result_str(r));
 
-    /* ── P-core preference ──────────────────────────────────── */
+
     r = cpu_boost_prefer_pcores();
     printf("[pcore]  prefer P-cores: %s\n", result_str(r));
 
-    /* ── Snapshot ───────────────────────────────────────────── */
+
     cpu_boost_snapshot_t snap;
     r = cpu_boost_snapshot(&snap);
     printf("[snap]   result: %s\n", result_str(r));
@@ -52,8 +52,7 @@ int main(void)
         printf("         threads     = %d\n", snap.thread_count);
         printf("         thermal     = %d\n", snap.thermal_state);
     }
-
-    /* ── Aligned alloc ──────────────────────────────────────── */
+    
     void *buf = cpu_boost_aligned_alloc(4096);
     printf("[alloc]  aligned_alloc(4096): %s (addr=%p)\n",
            buf ? "OK" : "FAIL", buf);
@@ -70,8 +69,7 @@ int main(void)
         }
         cpu_boost_aligned_free(buf);
     }
-
-    /* ── GPU ────────────────────────────────────────────────── */
+    
     printf("\n--- GPU ---\n");
     gpu_boost_ctx_t *gpu = gpu_boost_create();
     if (gpu) {
